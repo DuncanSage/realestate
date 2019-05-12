@@ -1,0 +1,44 @@
+<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/mystyle.css"/>
+
+<!-- Contact form section. -->
+						<form class="contact-form" method="post" action="send_mail.php">
+							<p style="color: red">*required field</p>
+							<div class="row">
+
+								<div class="col-md-4">
+									<label>First Name:<span style="color: red"> *</span></label>
+									<input type="text" name="fname" required >
+								</div>
+
+								<div class="col-md-4">
+									<label>Last Name:<span style="color: red"> *</span></label>
+									<input type="text" name="lname" required >
+								</div>
+
+								<div class="col-md-8">
+									<label>Email:<span style="color: red"> *</span></label>
+									<input type="email" name="email" required>
+								</div>
+
+								<div class="col-md-8">
+									<label>Phone number: (optional)</label>
+									<input type="number" name="pnumber">
+								</div>
+
+								<div class="col-md-8" style="display: none;">
+									<label>do not enter press tab again</label>
+									<input type="text" name="firstname">
+								</div>							
+
+								<div class="col-md-8">
+									<label>Your message:<span style="color: red"> *</span></label>
+									<textarea class='autoexpand' rows='1' name="message" required></textarea>
+									<button class="site-btn" type="submit">Send</button>							
+								</div>
+
+							</div>
+						</form>
+						<!-- Contact form section end. -->
