@@ -1,0 +1,132 @@
+
+.contact-widget a:hover, .footer-widget .double-menu-widget ul a:hover {
+	color: #1E1E1E;
+	text-decoration: underline; 
+}
+
+.footer-widget .double-menu-widget ul a, .contact-widget a, .footer-widget p, .footer-widget .fw-title {
+	color: #505052;
+}
+
+.footer-section {
+	background-color: white;
+	padding: 20px;
+}
+
+.fa, .fas, .fab, .far {
+	color: #007ee1 !important;
+}
+
+footer {
+	border-top: 1px solid #324a4e;
+}
+
+.feature-item .room-price {
+	background-color: #708090;
+
+}
+
+/*.container .hero-text {
+	color: #708090;
+}*/
+
+.service-item i {
+	height: 60px;
+	width: 60px;
+	background: #9caebf;
+	border-radius: 50%;
+	text-align: center;
+	padding-top: 18px;
+	font-size: 24px;
+	float: left;
+}
+/*.hero-text p{
+	margin-bottom: none;
+	padding-bottom: 100%;
+	width: 100%;
+	color: grey;
+	background-image: url("../img/herobg.png");
+}*/
+
+
+
+
+
+iframe {
+	z-index: -1;
+}
+
+
+
+
+/*------------------
+	Contact page
+--------------------*/
+
+.contact-form label {
+	font-size: 18px;
+}
+
+.contact-form input, textarea {
+	background-color: #f2f2f2;
+}
+
+.contact-form input:focus, textarea:focus{
+	background-color: #e6e6e6;
+}
+
+.contact-form .site-btn:hover {
+	font-size: 15px;
+	background-color: #008000;
+	color: #f2f2f2;
+}
+
+.mapouter {
+	position:relative;
+	text-align:right;
+	height:80%;
+	max-height: 800px;
+	width:100%;
+	margin-top: 20px;
+	margin-bottom: 50%;
+	/*padding: 10%;*/
+	padding-left: 0px;
+	}
+
+.gmap_canvas {
+	overflow:hidden;
+	background:none;
+	height:100%;
+	width:100%;
+	border: solid .5px #007ee1;
+	border-radius: 3px;
+	z-index: 10;
+}
+
+.contact-info .service-item i {
+	background-color: unset;
+	text-align: center;
+	font-size: 18px;
+	float: left;
+}
+
+/*.contact-info .service-item:last-child {
+
+}*/
+
+.contact-details {
+	align-content: right;
+}
+
+/*------------------
+	Nav
+--------------------*/
+.main-menu a {
+	color: #505052;
+
+}
+
+.main-menu a:hover {
+	color: #007ee1 !important;
+	text-decoration: underline; 
+}
