@@ -85,7 +85,7 @@ footer {
 	padding-top: 1%;
 	bottom: 0;
 	height: auto;
-	min-height: 96px;
+	/*min-height: 96px;*/
 	width: 100%;
 	/*background-color: red;*/
 	z-index: 5;
