@@ -67,41 +67,41 @@ $(window).on('load', function() {
 	/*------------------
 		Review Slider
 	--------------------*/
-	$('.review-slider').owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: false,
-        items: 1,
-        dots: true,
-        autoplay: true,
-    });
+	// $('.review-slider').owlCarousel({
+ //        loop: true,
+ //        margin: 0,
+ //        nav: false,
+ //        items: 1,
+ //        dots: true,
+ //        autoplay: true,
+ //    });
 
 
 
-    $('.clients-slider').owlCarousel({
-		loop:true,
-		autoplay:true,
-		margin:30,
-		nav:false,
-		dots: true,
-		responsive:{
-			0:{
-				items:2,
-				margin:10
-			},
-			600:{
-				items:3
-			},
-			800:{
-				items:3
-			},
-			1000:{
-				items:5
-			}
-		}
-	}
+ //    $('.clients-slider').owlCarousel({
+	// 	loop:true,
+	// 	autoplay:true,
+	// 	margin:30,
+	// 	nav:false,
+	// 	dots: true,
+	// 	responsive:{
+	// 		0:{
+	// 			items:2,
+	// 			margin:10
+	// 		},
+	// 		600:{
+	// 			items:3
+	// 		},
+	// 		800:{
+	// 			items:3
+	// 		},
+	// 		1000:{
+	// 			items:5
+	// 		}
+	// 	}
+	// }
 
-	);
+	// );
 
 
 	/*------------------
@@ -116,7 +116,7 @@ $(window).on('load', function() {
 		items : 1,
 		slideSpeed : 2000,
 		nav: false,
-		autoplay: true,
+		autoplay: false,
 		dots: true,
 		loop: true,
 		responsiveRefreshRate : 200,
@@ -129,7 +129,7 @@ $(window).on('load', function() {
 		dots: true,
 		nav: true,
 		margin: 10,
-		smartSpeed: 200,
+		smartSpeed: 2000,
 		slideSpeed : 500,
 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
 		slideBy: slidesPerPage, //alternatively you can slide by 1, this way the active slide will stick to the first item in the second carousel
@@ -205,3 +205,20 @@ $(window).on('load', function() {
 
 })(jQuery);
 
+/*------------------
+	 outline while tabbing
+	--------------------*/
+					
+function handleFirstTab(e) {
+    if (e.keyCode === 9) { // the "I am a keyboard user" key
+        document.body.classList.add('user-is-tabbing');
+        window.removeEventListener('keydown', handleFirstTab);
+    };
+};
+
+window.addEventListener('keydown', handleFirstTab);
+
+
+/*-----------------------------------------------
+				Contact page 
+ -----------------------------------------------*/

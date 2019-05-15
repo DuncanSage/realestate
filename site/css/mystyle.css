@@ -19,24 +19,6 @@ body:not(.user-is-tabbing) textarea:focus {
 	height: 500px;
 }
 
-.site-navbar {
-
-}
-
-/*.cover {
-	display: block;
-	position: absolute;
-	height: 600px;
-	padding-top: 210px;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
-	background-color: red;
-	background-image: url(../img/cover.png);
-	z-index: -1;
-}*/
-
 .page-top-section {
   background-color: grey;
 }
@@ -172,14 +154,6 @@ iframe {
 	text-align: center;
 	font-size: 18px;
 	float: left;
-}
-
-/*.contact-info .service-item:last-child {
-
-}*/
-
-.contact-details {
-
 }
 
 /*------------------

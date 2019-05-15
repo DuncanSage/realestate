@@ -86,11 +86,12 @@
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!--<script src="js/owl.carousel.min.js"></script> -->
-	<!--<script src="js/masonry.pkgd.min.js"></script> -->
-	<!--<script src="js/magnific-popup.min.js"></script> --> 
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/masonry.pkgd.min.js"></script>
+	<script src="js/magnific-popup.min.js"></script>
 	<script src="js/main.js"></script>
 	<!-- <script src="js/myscript.js"></script> -->
+	
 	<!-- font awesome -->
 	<script src="js/all.min.js"></script>
 	

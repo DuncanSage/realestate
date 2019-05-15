@@ -1356,12 +1356,10 @@ ol {
 	width: 100%;
 	border: 1px solid #ebebeb;
 	margin-bottom: 17px;
-	height: 40px;
 	padding: 0 20px;
 }
 
 .contact-form-card textarea {
-	height: 100px;
 	padding: 10px 20px;
 }
 
@@ -1810,8 +1808,7 @@ ol {
 	padding-left: 55px;
 }
 
-.contact-form input,
-.contact-form textarea {
+.contact-form input{
 	width: 100%;
 	border: 1px solid #ebebeb;
 	margin-bottom: 17px;
@@ -1821,8 +1818,11 @@ ol {
 }
 
 .contact-form textarea {
-	height: 90px;
 	padding: 15px 20px 10px;
+	width: 100%;
+	border: 1px solid #ebebeb;
+	margin-bottom: 17px;
+	font-size: 18px;
 }
 
 /*------------------
