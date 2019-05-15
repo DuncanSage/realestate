@@ -49,9 +49,9 @@ function handleFirstTab(e) {
 window.addEventListener('keydown', handleFirstTab);
 
 
-// -----------------------------------------------
-//				Contact page 
-// -----------------------------------------------
+/*-----------------------------------------------
+				Contact page 
+ -----------------------------------------------*/
 
 //Expand text area as user types
 var autoExpand = function (field) {
