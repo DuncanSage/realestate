@@ -14,7 +14,6 @@ body {
 	height: 100%;
 	font-family: verdana;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
 }
 
 h1,
@@ -89,7 +88,7 @@ ol {
 	margin-bottom: 40px;
 }
 
-.section-title h3, h1,{
+.section-title h3, h1{
 	font-weight: 300;
 	margin-bottom: 10px;
 	text-transform: uppercase;
@@ -1869,8 +1868,8 @@ ol {
 	.main-menu li a {
 		margin-left: 15px;
 	}
-	.hero-text p {
-		font-size: 18px;
+	/*.hero-text p {
+		font-size: 18px;*/
 	}
 	.filter-form input {
 		width: calc(40% - 20px);
@@ -1961,13 +1960,7 @@ ol {
 		padding: 12px 20px;
 		border-bottom: 1px solid #e1e1e1;
 	}
-	.hero-section {
-		height: auto;
-	}
-	.hero-text {
-		
-		
-	}
+
 	.filter-form input,
 	.filter-form select {
 		width: 100%;
