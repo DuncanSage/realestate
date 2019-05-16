@@ -102,19 +102,19 @@ if (isset($_REQUEST['id']))
 				<div class="col-lg-8 single-list-page">
 					<div class="single-list-slider owl-carousel" id="sl-slider">
 						<div class="sl-item set-bg" data-setbg="img/single-list-slider/1.jpg">
-							<div class="sale-notic">FOR SALE</div>
+							<div class="sale-notice">FOR SALE</div>
 						</div>
 						<div class="sl-item set-bg" data-setbg="img/single-list-slider/2.jpg">
-							<div class="rent-notic">FOR Rent</div>
+							<div class="rent-notice">FOR Rent</div>
 						</div>
 						<div class="sl-item set-bg" data-setbg="img/single-list-slider/3.jpg">
-							<div class="sale-notic">FOR SALE</div>
+							<div class="sale-notice">FOR SALE</div>
 						</div>
 						<div class="sl-item set-bg" data-setbg="img/single-list-slider/4.jpg">
-							<div class="rent-notic">FOR Rent</div>
+							<div class="rent-notice">FOR Rent</div>
 						</div>
 						<div class="sl-item set-bg" data-setbg="img/single-list-slider/5.jpg">
-							<div class="sale-notic">FOR SALE</div>
+							<div class="sale-notice">FOR SALE</div>
 						</div>
 					</div>
 					<div class="owl-carousel sl-thumb-slider" id="sl-slider-thumb">
@@ -139,41 +139,23 @@ if (isset($_REQUEST['id']))
 							<div class="col-md-4 col-sm-6">
 								<p><i class="fa fa-th-large"></i> 1500 Square foot</p>
 								<p><i class="fa fa-bed"></i> 16 Bedrooms</p>
-								<p><i class="fa fa-user"></i> Gina Wesley</p>
+								<p><i class="fa fa-user"></i><?php echo $repname; ?></p>
 							</div>
 							<div class="col-md-4 col-sm-6">
 								<p><i class="fa fa-car"></i> 2 Garages</p>
-								<p><i class="fa fa-building-o"></i> Family Villa</p>
-								<p><i class="fa fa-clock-o"></i> 1 days ago</p>
+								<p><i class="fa fa-home"></i> Family Villa</p>
+								<p><i class="fa fa-clock"></i> 1 days ago</p>
 							</div>
 							<div class="col-md-4">
 								<p><i class="fa fa-bath"></i> 8 Bathrooms</p>
-								<p><i class="fa fa-trophy"></i> 5 years age</p>
 							</div>
 						</div>
 						<h3 class="sl-sp-title">Description</h3>
 						<div class="description">
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas fermentum ornareste. Donec index lorem. Vestibulum  aliquet odio, eget tempor libero. Cras congue cursus tincidunt. Nullam venenatis dui id orci egestas tincidunt id elit. Nullam ut vuputate justo. Integer lacnia pharetra pretium. Casan ante ipsum primis in faucibus orci luctus et ultrice.</p>
 							</div>
-						<h3 class="sl-sp-title">Property Details</h3>
-						<div class="row property-details-list">
-							<div class="col-md-4 col-sm-6">
-								<p><i class="fa fa-check-circle-o"></i> Air conditioning</p>
-								<p><i class="fa fa-check-circle-o"></i> Telephone</p>
-								<p><i class="fa fa-check-circle-o"></i> Laundry Room</p>
-							</div>
-							<div class="col-md-4 col-sm-6">
-								<p><i class="fa fa-check-circle-o"></i> Central Heating</p>
-								<p><i class="fa fa-check-circle-o"></i> Family Villa</p>
-								<p><i class="fa fa-check-circle-o"></i> Metro Central</p>
-							</div>
-							<div class="col-md-4">
-								<p><i class="fa fa-check-circle-o"></i> City views</p>
-								<p><i class="fa fa-check-circle-o"></i> Internet</p>
-								<p><i class="fa fa-check-circle-o"></i> Electric Range</p>
-							</div>
-						</div>
-						<h3 class="sl-sp-title bd-no">Floorplans</h3>
+						
+						<!-- <h3 class="sl-sp-title bd-no">Floorplans</h3>
 						<div id="accordion" class="plan-accordion">
 							<div class="panel">
 								<div class="panel-header" id="headingOne">
@@ -207,15 +189,10 @@ if (isset($_REQUEST['id']))
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
-						<h3 class="sl-sp-title bd-no">Video</h3>
-						<div class="perview-video">
-							<img src="img/video.jpg" alt="">
-							<a href="https://www.youtube.com/watch?v=v13nSVp6m5I" class="video-link"><img src="img/video-btn.png" alt=""></a>
-						</div>
-						<h3 class="sl-sp-title bd-no">Location</h3>
-						<div class="pos-map" id="map-canvas"></div>
+						<!-- <h3 class="sl-sp-title bd-no">Location</h3>
+						<div class="pos-map" id="map-canvas"></div> -->
 					</div>
 				</div>
 				<!-- sidebar -->
@@ -224,13 +201,44 @@ if (isset($_REQUEST['id']))
 						<div class="author-img set-bg" data-setbg="img/author.jpg"></div>
 						<div class="author-info">
 							<h5>Gina Wesley</h5>
-							<p>Real Estate Agent</p>
+							<p><?php echo $repname; ?></p>
 						</div>
 						<div class="author-contact">
-							<p><i class="fa fa-phone"></i>(567) 666 121 2233</p>
-							<p><i class="fa fa-envelope"></i>ginawesley26@gmail.com</p>
+							<?php 
+									if (!empty($row['workphone'])) 
+									{
+										echo '<p><i class="fa fa-phone"></i>' .$row['workphone']. '</p>';
+									}
+									if (!empty($row['mobilephone'])) 
+									{
+										echo '<p><i class="fa fa-phone"></i>Mob: ' .$row['mobilephone']. '</p>';
+									}
+									if (!empty($row['mobilephone'])) 
+									{
+										echo "<p><a href='tel:$row['email']'><i class='fa fa-envelope'></i> $row['email'] </p>";
+									}
+									<a href="tel:0487289471">Mobile: 0487 289 471</a>
+									?>
 						</div>
 					</div>
+
+					<h4>Property Highlights</h4>
+							<div class="col-md-4 col-sm-6">
+								<p><i class="fas fa-check-circle"></i> Air conditioning</p>
+								<p><i class="fas fa-check-circle"></i> Telephone</p>
+								<p><i class="fas fa-check-circle"></i> Laundry Room</p>
+							</div>
+							<div class="col-md-4 col-sm-6">
+								<p><i class="fas fa-check-circle"></i> Central Heating</p>
+								<p><i class="fas fa-check-circle"></i> Family Villa</p>
+								<p><i class="fas fa-check-circle"></i> Metro Central</p>
+							</div>
+							<div class="col-md-4">
+								<p><i class="fas fa-check-circle"></i> City views</p>
+								<p><i class="fas fa-check-circle"></i> Internet</p>
+								<p><i class="fas fa-check-circle"></i> Electric Range</p>
+							</div>
+
 					<div class="contact-form-card">
 						<h5>Do you have any question?</h5>
 						<form>
@@ -240,49 +248,6 @@ if (isset($_REQUEST['id']))
 							<button>SEND</button>
 						</form>
 					</div>
-					<div class="related-properties">
-						<h2>Related Property</h2>
-						<div class="rp-item">
-							<div class="rp-pic set-bg" data-setbg="img/feature/1.jpg">
-								<div class="sale-notic">FOR SALE</div>
-							</div>
-							<div class="rp-info">
-								<h5>1963 S Crescent Heights Blvd</h5>
-								<p><i class="fa fa-map-marker"></i>Los Angeles, CA 90034</p>
-							</div>
-							<a href="#" class="rp-price">$1,200,000</a>
-						</div>
-						<div class="rp-item">
-							<div class="rp-pic set-bg" data-setbg="img/feature/2.jpg">
-								<div class="rent-notic">FOR Rent</div>
-							</div>
-							<div class="rp-info">
-								<h5>17 Sturges Road, Wokingham</h5>
-								<p><i class="fa fa-map-marker"></i> Newtown, CT 06470</p>
-							</div>
-							<a href="#" class="rp-price">$2,500/month</a>
-						</div>
-						<div class="rp-item">
-							<div class="rp-pic set-bg" data-setbg="img/feature/4.jpg">
-								<div class="sale-notic">FOR SALE</div>
-							</div>
-							<div class="rp-info">
-								<h5>28 Quaker Ridge Road, Manhasset</h5>
-								<p><i class="fa fa-map-marker"></i>28 Quaker Ridge Road, Manhasset</p>
-							</div>
-							<a href="#" class="rp-price">$5,600,000</a>
-						</div>
-						<div class="rp-item">
-							<div class="rp-pic set-bg" data-setbg="img/feature/5.jpg">
-								<div class="rent-notic">FOR Rent</div>
-							</div>
-							<div class="rp-info">
-								<h5>Sofi Berryessa 750 N King Road</h5>
-								<p><i class="fa fa-map-marker"></i>Sofi Berryessa 750 N King Road</p>
-							</div>
-							<a href="#" class="rp-price">$1,600/month</a>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -290,29 +255,6 @@ if (isset($_REQUEST['id']))
 	<!-- Page end -->
 
 
-	<!-- Clients section -->
-	<div class="clients-section">
-		<div class="container">
-			<div class="clients-slider owl-carousel">
-				<a href="#">
-					<img src="img/partner/1.png" alt="">
-				</a>
-				<a href="#">
-					<img src="img/partner/2.png" alt="">
-				</a>
-				<a href="#">
-					<img src="img/partner/3.png" alt="">
-				</a>
-				<a href="#">
-					<img src="img/partner/4.png" alt="">
-				</a>
-				<a href="#">
-					<img src="img/partner/5.png" alt="">
-				</a>
-			</div>
-		</div>
-	</div>
-	<!-- Clients section end -->
 
 
 	<!-- Footer section -->
