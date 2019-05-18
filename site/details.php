@@ -205,20 +205,35 @@ if (isset($_REQUEST['id']))
 						</div>
 						<div class="author-contact">
 							<?php 
-									if (!empty($row['workphone'])) 
-									{
-										echo '<p><i class="fa fa-phone"></i>' .$row['workphone']. '</p>';
+								function displayContact($con) 
+								{
+									if (!empty($con)) {
+										
+										//$x = "<p><a href='tel: " .$con."'><i class='fa fa-phone'></i>Office: " .$con. "</p></a>";
+										//return $x;
 									}
-									if (!empty($row['mobilephone'])) 
+									else
 									{
-										echo '<p><i class="fa fa-phone"></i>Mob: ' .$row['mobilephone']. '</p>';
+										return;
 									}
-									if (!empty($row['mobilephone'])) 
-									{
-										echo "<p><a href='tel:$row['email']'><i class='fa fa-envelope'></i> $row['email'] </p>";
-									}
-									<a href="tel:0487289471">Mobile: 0487 289 471</a>
-									?>
+									
+								}
+								// if (!empty($row['workphone'])) 
+								// {
+									echo displayContact( $row );
+									//echo "<p><a href='tel: " .$row['workphone']."'><i class='fa fa-phone'></i>Office: "  .$row['workphone']. "</p></a>";
+								//}
+								if (!empty($row['mobilephone'])) 
+								{
+									echo "<p><a href='tel: " .$row['mobilephone']. "'><i class='fa fa-phone'></i>Mobile: "  .$row['mobilephone']. "</p></a>";
+								}
+								if (!empty($row['mobilephone'])) 
+								{
+									echo "<p><a href='mailto: " .$row['email']. "'><i class='fa fa-envelope'></i>Email: "  .$row['email']. "</p></a>";
+									
+								}
+								// <a href="tel:0487289471">Mobile: 0487 289 471</a>
+							?>
 						</div>
 					</div>
 
