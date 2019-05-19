@@ -21,8 +21,9 @@
 					<!-- <img src="img/logo.png" alt=""> -->
 					<p>Keep up to date with us on Instagram and facebook</p>
 					<div class="social">
-						<a href="https://www.facebook.com/AllisonWhaitesClarenceValley/" target="_blank"><i class="fab fa-facebook-square"></i></a><!-- https://www.facebook.com/firstnationalgrafton/ -->
-						<a href="https://www.instagram.com/allison_whaites_estate_agent/" target="_blank"><i class="fab fa-instagram"></i></a><!-- https://www.instagram.com/graftonrealestate/ -->
+						<a href="https://www.facebook.com/AllisonWhaitesClarenceValley/" target="_blank"><i class="fab fa-facebook-square"></i>AllisonWhaitesClarenceValley</a><!-- https://www.facebook.com/firstnationalgrafton/ -->
+						<br>
+						<a href="https://www.instagram.com/allison_whaites_estate_agent/" target="_blank"><i class="fab fa-instagram"></i>allison_whaites_estate_agent</a><!-- https://www.instagram.com/graftonrealestate/ -->
 						<!-- <a href="#"><i class="fa fa-twitter"></i></a> -->
 						<!-- <a href="#"><i class="fa fa-pinterest"></i></a> -->
 						<!-- <a href="#"><i class="fa fa-linkedin"></i></a> -->
