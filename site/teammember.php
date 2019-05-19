@@ -90,7 +90,7 @@ if (isset($_REQUEST['id']))
 						// $string = str_replace(".", ".<br><br>", $subject);
 						$subject = nl2br($subject);
 						echo $subject;
-					 ?>
+					?>
 					 	
 					 </p>
 				</div>

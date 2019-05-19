@@ -94,14 +94,13 @@ include "opendb.php";
 					$datediff = round($datediff / (60 * 60 * 24));
 
 					$location = 
-					'<p><i class="fa fa-map-marker"></i>'
-					.$row['addresstype'].' ' 
+					 $row['addresstype'].' ' 
 					.$row['addressid'].' '
 					.$row['streetnumber'].' '
 					.$row['streetname'].' '
 					.$row['suburb'].' '
 					.$row['city'].' '
-					.$row['state']. '</p>';
+					.$row['state'];
 
 ?>
 
@@ -109,7 +108,7 @@ include "opendb.php";
 				<div class="col-xl-3 col-lg-4 col-md-6" tabindex="0">
 					<!-- feature -->
 					<div class="feature-item">
-						<a href="details.php?id=<?php echo $row['id']; ?>&from=home" target="_blank"><span id="details-link"></span></a>
+						<a href="details.php?id=<?php echo $row['id']; ?>&from=properties" target="_blank"><span id="details-link"></span></a>
 
 						<div class="feature-pic set-bg" data-setbg="<?php echo 'img/properties/'.$row['thumbnail'] ?>">
 							<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($row['status']); ?></div>
@@ -120,7 +119,7 @@ include "opendb.php";
 
 								echo '<h5>'.$row['streetnumber'].' '.$row['streetname'].'</h5>';
 
-								echo $location;
+								echo '<p><i class="fa fa-map-marker"></i>' .$location. '</p>';
 
 								?>
 							</div>
