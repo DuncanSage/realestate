@@ -11,28 +11,31 @@ if (isset($_REQUEST['id']))
 { 
     $current_id = $_REQUEST['id']; 
 
-	$sql = "SELECT `dsage_property`.*, `dsage_team`. `fname`, `lname`, `workphone`, `mobilephone`, `email`, `profilepic`
-	FROM `dsage_property`
-	INNER JOIN `dsage_team` 
-		ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
-	WHERE `dsage_property`.`id` = $current_id";
-	
-	$sql2 = "SELECT `dsage_propertyimages`. `imagepath`
-	FROM `dsage_propertyimages`
-	WHERE `dsage_propertyimages`.`propertyid` = $current_id";
-
-	// $sql = "SELECT `dsage_property`.*, `dsage_propertyimages`.*, `dsage_team`. `fname`, `lname`, `workphone`, `mobilephone`, `email`, `profilepic`
+	// $sql = "SELECT `dsage_property`.*, `dsage_team`. `fname`, `lname`, `workphone`, `mobilephone`, `email`, `profilepic`
 	// FROM `dsage_property`
 	// INNER JOIN `dsage_team` 
 	// 	ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
-	// INNER JOIN `dsage_propertyimages` 
-	// 	ON `dsage_propertyimages`.`propertyid` = `dsage_property`.`id` 
 	// WHERE `dsage_property`.`id` = $current_id";
+	
+	// $sql2 = "SELECT `dsage_propertyimages`. `imagepath`
+	// FROM `dsage_propertyimages`
+	// WHERE `dsage_propertyimages`.`propertyid` = $current_id";
 
+	//$sql = "SELECT * FROM `dsage_property` WHERE `id` = $current_id ";
 
-    //$sql = "SELECT * FROM `dsage_property` WHERE `id` = $current_id ";
+	$sql = "SELECT `dsage_property`.*, `dsage_propertyimages`.*, `dsage_team`. `fname`, `lname`, `workphone`, `mobilephone`, `email`, `profilepic`
+	FROM `dsage_property`
+	INNER JOIN `dsage_team` 
+		ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
+	LEFT JOIN `dsage_propertyimages` 
+		ON `dsage_property`.`id` = `dsage_propertyimages`.`propertyid`  
+	WHERE `dsage_property`.`id` = $current_id";
+	//echo "$sql";
+
+    
 
     $result = mysqli_query($dbconn, $sql);
+  
     $row = mysqli_fetch_array($result);
 
     
@@ -120,43 +123,33 @@ if (isset($_REQUEST['id']))
 
 					<div class="single-list-slider owl-carousel" id="sl-slider">
 
-						<?php  
+						<?php
+							mysqli_data_seek($result, 0);
+    						while ($row = mysqli_fetch_array($result)) {    							
+    					?>
 
-							$result2 = mysqli_query($dbconn, $sql2);
-    						$row2 = mysqli_fetch_array($result2);
-
-    						// while ($row2 = mysqli_fetch_array($result2)) {
-    						// 	echo $row2['imagepath'];
-    						// }
-							// foreach ($row2 as $key => $value) {
-							// 	echo "$value";
-							// }
-
+    							<div class="sl-item set-bg" style="background-position: center;" data-setbg="img/<?php echo $row['imagepath']; ?>">
+    								<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($row['status']); ?></div>
+    							</div>
+    							<?php
+    						}
+    						
 						?>
 
-						<div class="sl-item set-bg" data-setbg="img/single-list-slider/1.jpg">
-							<div class="sale-notice">FOR SALE</div>
-						</div>
-						<div class="sl-item set-bg" data-setbg="img/single-list-slider/2.jpg">
-							<div class="rent-notice">FOR Rent</div>
-						</div>
-						<div class="sl-item set-bg" data-setbg="img/single-list-slider/3.jpg">
-							<div class="sale-notice">FOR SALE</div>
-						</div>
-						<div class="sl-item set-bg" data-setbg="img/single-list-slider/4.jpg">
-							<div class="rent-notice">FOR Rent</div>
-						</div>
-						<div class="sl-item set-bg" data-setbg="img/single-list-slider/5.jpg">
-							<div class="sale-notice">FOR SALE</div>
-						</div>
 					</div>
 
 					<div class="owl-carousel sl-thumb-slider" id="sl-slider-thumb">
-						<div class="sl-thumb set-bg" data-setbg="img/single-list-slider/1.jpg"></div>
-						<div class="sl-thumb set-bg" data-setbg="img/single-list-slider/2.jpg"></div>
-						<div class="sl-thumb set-bg" data-setbg="img/single-list-slider/3.jpg"></div>
-						<div class="sl-thumb set-bg" data-setbg="img/single-list-slider/4.jpg"></div>
-						<div class="sl-thumb set-bg" data-setbg="img/single-list-slider/5.jpg"></div>
+						<?php
+							mysqli_data_seek($result, 0);
+    						while ($row = mysqli_fetch_array($result)) {	
+    					?>
+
+     					<div class="sl-thumb set-bg" data-setbg="img/<?php echo $row['imagepath']; ?>"></div>
+ 
+    					<?php
+    						}
+						?>
+						
 					</div>
 					<div class="single-list-content">
 						<div class="row">
@@ -308,7 +301,8 @@ if (isset($_REQUEST['id']))
 							echo "<p><i class='fas fa-check-circle'></i> $a </p>";
 							}
 						}
-					?>
+					
+    					?>
 					</div>
 								
 								
