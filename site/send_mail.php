@@ -53,7 +53,7 @@ If you change the names of any of the pages, you will need to change the values 
 */
 //$feedback_page = "feedback_form.html";
 
-$feedback_page = "contact.php";
+$feedback_page = $_SERVER['HTTP_REFERER'];
 
 
 //$error_page = "contact.php?re=error";

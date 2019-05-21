@@ -35,7 +35,7 @@ if (isset($_REQUEST['id']))
     
 
     $result = mysqli_query($dbconn, $sql);
-  
+  	$resultloop = mysqli_query($dbconn, $sql);
     $row = mysqli_fetch_array($result);
 
     
@@ -124,15 +124,15 @@ if (isset($_REQUEST['id']))
 					<div class="single-list-slider owl-carousel" id="sl-slider">
 
 						<?php
-							mysqli_data_seek($result, 0);
-    						while ($row = mysqli_fetch_array($result)) {    							
+    						while ($rowloop = mysqli_fetch_array($resultloop)) {    							
     					?>
 
-    							<div class="sl-item set-bg" style="background-position: center;" data-setbg="img/<?php echo $row['imagepath']; ?>">
-    								<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($row['status']); ?></div>
+    							<div class="sl-item set-bg" style="background-position: center;" data-setbg="img/<?php echo $rowloop['imagepath']; ?>">
+    								<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($rowloop['status']); ?></div>
     							</div>
     							<?php
     						}
+    						mysqli_data_seek($resultloop, 0);
     						
 						?>
 
@@ -140,14 +140,14 @@ if (isset($_REQUEST['id']))
 
 					<div class="owl-carousel sl-thumb-slider" id="sl-slider-thumb">
 						<?php
-							mysqli_data_seek($result, 0);
-    						while ($row = mysqli_fetch_array($result)) {	
+    						while ($rowloop = mysqli_fetch_array($resultloop)) {	
     					?>
 
-     					<div class="sl-thumb set-bg" data-setbg="img/<?php echo $row['imagepath']; ?>"></div>
+     				<div class="sl-thumb set-bg" data-setbg="img/<?php echo $rowloop['imagepath']; ?>"></div>
  
     					<?php
     						}
+    						mysqli_data_seek($resultloop, 0);
 						?>
 						
 					</div>
@@ -155,13 +155,18 @@ if (isset($_REQUEST['id']))
 						<div class="row">
 
 							<div class="col-xl-8 sl-title">
+								<?php
+    						
+    						//mysqli_data_seek($result, 1);
+						?>
 								<h2><?php echo $row['streetnumber'].' '.$row['streetname'];?></h2>
 								<p><i class="fa fa-map-marker"></i><?php echo $location;?></p>
 							</div>
 
 							<div class="col-xl-4">
-								<a href="#" class="price-btn">
+								<h3>
 									<?php
+
 								
 									if ($row['status'] == 'rent') 
 									{
@@ -178,24 +183,56 @@ if (isset($_REQUEST['id']))
 									}
 
 									?>
-								</a>
+								</h3>
 							</div>
 
 						</div>
 						<h3 class="sl-sp-title">Property Details</h3>
 						<div class="row property-details-list">
 							<div class="col-md-4 col-sm-6">
-								<p><i class="fa fa-th-large"></i> 1500 Square foot</p>
-								<p><i class="fa fa-bed"></i> 16 Bedrooms</p>
+								<?php
+										//echos details of property if not empty
+											if (!empty($row['size'])) 
+											{
+											echo '<p><i class="fa fa-th-large"></i>Size '.$row['size'].'m<sup>2</sup></p>';
+											}
+										
+											if (!empty($row['bedrooms'])) 
+											{
+												echo '<p><i class="fa fa-bed"></i>Bedrooms: '.$row['bedrooms'].'</p>';
+											}
+									
+										?>
 								<p><i class="fa fa-user"></i><?php echo $repname; ?></p>
 							</div>
 							<div class="col-md-4 col-sm-6">
-								<p><i class="fa fa-car"></i> 2 Garages</p>
-								<p><i class="fa fa-home"></i> Family Villa</p>
-								<p><i class="fa fa-clock"></i> 1 days ago</p>
+								<?php
+											if (!empty($row['garages'])) 
+											{
+												echo '<p><i class="fa fa-car"></i>Garages: '.$row['garages'].'</p>';
+											}
+										
+											if (!empty($row['barthroom'])) 
+											{
+												echo '<p><i class="fa fa-bath"></i>Barthrooms: '.$row['barthroom'].'</p>';
+											}
+										?>
+							
+								
 							</div>
 							<div class="col-md-4">
-								<p><i class="fa fa-bath"></i> 8 Bathrooms</p>
+								<?php 
+
+								if (!empty($row['type'])) 
+											{
+												echo '<p><i class="fa fa-home"></i>Type: '.$row['type'].'</p>';
+											}
+
+											if ( $datediff > 0) 
+											{
+												echo '<p><i class="fa fa-clock"></i>Listed ' .$datediff. ' days ago</p>';
+											};
+											?>
 							</div>
 						</div>
 						<h3 class="sl-sp-title">Description</h3>
@@ -254,7 +291,9 @@ if (isset($_REQUEST['id']))
 					<div class="author-card">
 						<div class="author-img set-bg" data-setbg="img/team/<?php echo $row['profilepic']; ?>"></div>
 						<div class="author-info">
-							<h5><?php echo $repname; ?></h5>
+							<a href="teammember.php?id=<?php echo $row['id']; ?>">
+								<h5><?php echo $repname; ?></h5>
+							</a>
 						</div>
 						<div class="author-contact">
 							<?php 
@@ -309,13 +348,81 @@ if (isset($_REQUEST['id']))
 							
 
 					<div class="contact-form-card">
-						<h5>Do you have any question?</h5>
-						<form>
-							<input type="text" placeholder="Your name">
-							<input type="text" placeholder="Your email">
-							<textarea placeholder="Your question"></textarea>
-							<button>SEND</button>
+						<h5>Enquiries</h5>
+						<?php
+
+							if (isset($_SESSION['re'])){ 
+
+					    		$result = $_SESSION['re'];
+
+					    		if ($result == 'succss'){
+					    		?>
+
+					    		<div class="section-title">
+									<h3>Thank you for contacting us.</h3>
+									<h5>We will get back to you as soon as possible</h5>
+									<h5><a href="">Back to form.</a></h5>
+								</div>
+
+					    		<?php
+								} elseif ($result == 'error') {
+								?>
+
+								<div class="section-title">
+									<h3>Error please try again.</h3>
+									<h5><a href="contact.php">Back to form.</a></h5>
+								</div>
+
+								<?php
+								}
+					    	} else{
+
+					    ?>
+
+						<!-- Contact form section. -->
+						<form class="contact-form" method="post" action="send_mail.php">
+							<p style="color: red">*required field</p>
+							<div class="row">
+
+								<div class="col-md-6">
+									<label>First Name:<span style="color: red"> *</span></label>
+									<input type="text" name="fname" required >
+								</div>
+
+								<div class="col-md-6">
+									<label>Last Name:<span style="color: red"> *</span></label>
+									<input type="text" name="lname" required >
+								</div>
+
+								<div class="col-md-12">
+									<label>Email:<span style="color: red"> *</span></label>
+									<input type="email" name="email" required>
+								</div>
+
+								<div class="col-md-12">
+									<label>Phone number: (optional)</label>
+									<input type="number" name="pnumber">
+								</div>
+
+								<div class="col-md-12" style="display: none;">
+									<label>do not enter press tab again</label>
+									<input type="text" name="firstname">
+								</div>							
+
+								<div class="col-md-12">
+									<label>Your message:<span style="color: red"> *</span></label>
+									<textarea id="" class='' name="message" required></textarea>
+									<button class="" type="submit"  tabindex="0">Send</button>							
+								</div>
+
+							</div>
 						</form>
+						<!-- Contact form section end. -->
+						<?php 
+						};
+						unset($_SESSION['re']);
+						?>
+
 					</div>
 
 				</div>

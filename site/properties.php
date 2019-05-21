@@ -127,39 +127,29 @@ include "opendb.php";
 								<div class="room-info">
 									<div class="rf-left">
 										<?php
-											if ($row['size'] > 0) 
+										//echos details of property if not empty
+											if (!empty($row['size'])) 
 											{
-											echo '<p><i class="fa fa-th-large"></i>'.$row['size'].'m<sup>2</sup></p>';
+											echo '<p><i class="fa fa-th-large"></i>Size '.$row['size'].'m<sup>2</sup></p>';
 											}
 										
-											if ($row['bedrooms'] > 1) 
+											if (!empty($row['bedrooms'])) 
 											{
-												echo '<p><i class="fa fa-bed"></i>'.$row['bedrooms'].' Bedrooms</p>';
+												echo '<p><i class="fa fa-bed"></i>Bedrooms: '.$row['bedrooms'].'</p>';
 											}
-											elseif ($row['bedrooms'] = 1) 
-											{
-												echo '<p><i class="fa fa-bed"></i>'.$row['bedrooms'].' Bedroom</p>';
-											}
+									
 										?>
 									</div>
 									<div class="rf-right">
 										<?php
-											if ($row['garages'] > 1) 
+											if (!empty($row['garages'])) 
 											{
-												echo '<p><i class="fa fa-car"></i>'.$row['garages'].' Garages</p>';
-											}
-											elseif ($row['garages'] = 1) 
-											{
-												echo '<p><i class="fa fa-car"></i>'.$row['garages'].' Garage</p>';
+												echo '<p><i class="fa fa-car"></i>Garages: '.$row['garages'].'</p>';
 											}
 										
-											if ($row['barthroom'] > 1) 
+											if (!empty($row['barthroom'])) 
 											{
-												echo '<p><i class="fa fa-bath"></i>'.$row['barthroom'].' Barthrooms</p>';
-											}
-											elseif ($row['barthroom'] = 1) 
-											{
-												echo '<p><i class="fa fa-bath"></i>'.$row['barthroom'].' Barthroom</p>';
+												echo '<p><i class="fa fa-bath"></i>Barthrooms: '.$row['barthroom'].'</p>';
 											}
 										?>
 									</div>	
