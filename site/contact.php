@@ -218,7 +218,7 @@ session_start();
 
 								<div class="col-md-12">
 									<label>Your message:<span style="color: red"> *</span></label>
-									<textarea id="" class='' name="message" required></textarea>
+									<textarea name="message" required></textarea>
 									<button class="site-btn" type="submit"  tabindex="0">Send</button>							
 								</div>
 
