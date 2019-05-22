@@ -14,7 +14,7 @@
 	}
 	else if ($filename == "details") 
 	{
-		echo '<title>' .$row['streetnumber'].' '.$row['streetname']. '</title>';
+		echo '<title>About -' .$row['streetnumber'].' '.$row['streetname']. '</title>';
 		echo "<link rel='stylesheet' href='css/animate.css'/><link rel='stylesheet' href='css/owl.carousel.css'/><link rel='stylesheet' href='css/magnific-popup.css'/>";
 	}
 	else 

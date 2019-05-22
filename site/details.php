@@ -66,7 +66,7 @@ if (isset($_REQUEST['id']))
  else 
  {
  	//if the user tries to get to the page with out selecting a property loads the property page
-	header('Location: properties.php');
+	header("Location: properties.php");
  }
 
 ?>
@@ -261,11 +261,11 @@ include "head.php";
 									if (!empty($con)) {
 										if (strpos($con, '@') == false) 
 										{
-											$x = "<p><a href='tel: ".$con."'><i class='fa fa-phone'></i>  " .$con. "</p></a>";
+											$x = "<p><a href='tel:".$con."'><i class='fa fa-phone'></i>  " .$con. "</a></p>";
 										}
 										else 
 										{
-											$x = "<p><a href='mailto: ".$con."'><i class='fa fa-envelope'></i>  " .$con. "</p></a>";
+											$x = "<p><a href='mailto:".$con."'><i class='fa fa-envelope'></i>  " .$con. "</a></p>";
 										}
 										return $x;
 									}
@@ -365,7 +365,7 @@ include "head.php";
 
 								<div class="col-md-12">
 									<label>Your message:<span style="color: red"> *</span></label>
-									<textarea id="" class='' name="message" required></textarea>
+									<textarea name="message" required></textarea>
 									<button class="" type="submit"  tabindex="0">Send</button>							
 								</div>
 
