@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 
 <?php
+
 include "opendb.php";
 
 if (!$dbconn) 
 {
 	die("Connection failed: " . mysqli_connect_error());
-} 
+}
+
 if (isset($_REQUEST['id']))
 { 
     $current_id = $_REQUEST['id']; 
@@ -23,6 +25,7 @@ if (isset($_REQUEST['id']))
 
 	//$sql = "SELECT * FROM `dsage_property` WHERE `id` = $current_id ";
 
+    //get data from dsage property, team and propertyimages table
 	$sql = "SELECT `dsage_property`.*, `dsage_propertyimages`.*, `dsage_team`. `fname`, `lname`, `workphone`, `mobilephone`, `email`, `profilepic`
 	FROM `dsage_property`
 	INNER JOIN `dsage_team` 
@@ -32,24 +35,24 @@ if (isset($_REQUEST['id']))
 	WHERE `dsage_property`.`id` = $current_id";
 	//echo "$sql";
 
-    
 
     $result = mysqli_query($dbconn, $sql);
   	$resultloop = mysqli_query($dbconn, $sql);
+
     $row = mysqli_fetch_array($result);
 
-    
     $num_records = mysqli_num_rows($result);
 
 	$repname = $row['fname']. ' ' .$row['lname'];
 
-	$timestamp = $row['listdate']; //date from DB to string
 
-	$now = time(); //todays
+	$timestamp = $row['listdate']; //date from DB to string
+	$now = time(); //todays time
 	$listdate = strtotime("$timestamp");
 	$datediff = $now - $listdate;
+	//the diffrence between the listed date and the current date in days
+	$datediff = round($datediff / (60 * 60 * 24)); 
 
-	$datediff = round($datediff / (60 * 60 * 24));
 
 	$location = 
 	 $row['addresstype'].' ' 
@@ -62,20 +65,23 @@ if (isset($_REQUEST['id']))
  }
  else 
  {
+ 	//if the user tries to get to the page with out selecting a property loads the property page
 	header('Location: properties.php');
  }
 
 ?>
+
 <html lang="en">
 
 <?php 
 
-	include "head.php";
+include "head.php";
 
 ?>
 
 
 <body>
+
 	<!-- Page Preloder -->
 	<!-- <div id="preloder">
 		<div class="loader"></div>
@@ -91,7 +97,7 @@ if (isset($_REQUEST['id']))
 
 		<!-- Header section -->
 		<?php 
-			include "header.php"
+		include "header.php"
 		?>
 		<!-- Header section end -->
 
@@ -102,14 +108,16 @@ if (isset($_REQUEST['id']))
 	<div class="site-breadcrumb">
 		<div class="container">
 			<a href="index.php"><i class="fa fa-home"></i>Home</a>
-			<?php 
+				<?php 
+				//adds a link back to the property page if the user came from there instead of the homepage
 				if ($_REQUEST['from'] == 'properties') 
 				{
-			?>
+				?>
+
 				<a href="properties.php"><i class="fa fa-angle-right"></i>Properties</a>
-			<?php 
+				<?php 
 				}
-			 ?>
+			 	?>
 			<span><i class="fa fa-angle-right"></i><?php echo $row['streetnumber'].' '.$row['streetname']; ?></span>
 		</div>
 	</div>
@@ -122,52 +130,45 @@ if (isset($_REQUEST['id']))
 				<div class="col-lg-8 single-list-page">
 
 					<div class="single-list-slider owl-carousel" id="sl-slider">
-
 						<?php
-    						while ($rowloop = mysqli_fetch_array($resultloop)) {    							
+						//loops to display all property images in the database
+						while ($rowloop = mysqli_fetch_array($resultloop)) 
+						{ 							
     					?>
-
-    							<div class="sl-item set-bg" style="background-position: center;" data-setbg="img/<?php echo $rowloop['imagepath']; ?>">
-    								<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($rowloop['status']); ?></div>
-    							</div>
-    							<?php
-    						}
-    						mysqli_data_seek($resultloop, 0);
-    						
+							<div class="sl-item set-bg" style="background-position: center;" data-setbg="img/<?php echo $rowloop['imagepath']; ?>">
+								<div class="<?php echo $row['status']; ?>-notice">FOR <?php echo strtoupper($rowloop['status']); ?></div>
+							</div>
+						<?php
+						}
+						// resets the array index back to 0 for the next loop
+						mysqli_data_seek($resultloop, 0);
 						?>
-
 					</div>
 
 					<div class="owl-carousel sl-thumb-slider" id="sl-slider-thumb">
 						<?php
-    						while ($rowloop = mysqli_fetch_array($resultloop)) {	
+						//loops to display all property images in the database in a thumbnail slider
+						while ($rowloop = mysqli_fetch_array($resultloop)) {	
     					?>
-
-     				<div class="sl-thumb set-bg" data-setbg="img/<?php echo $rowloop['imagepath']; ?>"></div>
- 
+     						<div class="sl-thumb set-bg" data-setbg="img/<?php echo $rowloop['imagepath']; ?>"></div>
     					<?php
-    						}
-    						mysqli_data_seek($resultloop, 0);
+						}
+						mysqli_data_seek($resultloop, 0);
 						?>
 						
 					</div>
+					<!--- displays property details if they are in the database -->
 					<div class="single-list-content">
-						<div class="row">
+						<div class="row" tabindex="0">
 
 							<div class="col-xl-8 sl-title">
-								<?php
-    						
-    						//mysqli_data_seek($result, 1);
-						?>
 								<h2><?php echo $row['streetnumber'].' '.$row['streetname'];?></h2>
 								<p><i class="fa fa-map-marker"></i><?php echo $location;?></p>
 							</div>
 
 							<div class="col-xl-4">
-								<h3>
+								<h3 tabindex="0">
 									<?php
-
-								
 									if ($row['status'] == 'rent') 
 									{
 										echo '$'.number_format($row['price']). ' perweek'; 
@@ -181,7 +182,6 @@ if (isset($_REQUEST['id']))
 									{
 										echo 'For Auction'; 
 									}
-
 									?>
 								</h3>
 							</div>
@@ -191,99 +191,58 @@ if (isset($_REQUEST['id']))
 						<div class="row property-details-list">
 							<div class="col-md-4 col-sm-6">
 								<?php
-										//echos details of property if not empty
-											if (!empty($row['size'])) 
-											{
-											echo '<p><i class="fa fa-th-large"></i>Size '.$row['size'].'m<sup>2</sup></p>';
-											}
-										
-											if (!empty($row['bedrooms'])) 
-											{
-												echo '<p><i class="fa fa-bed"></i>Bedrooms: '.$row['bedrooms'].'</p>';
-											}
-									
-										?>
-								<p><i class="fa fa-user"></i><?php echo $repname; ?></p>
+								//echos details of property if not empty
+								if (!empty($row['size'])) 
+								{
+									echo '<p tabindex="0"><i class="fa fa-th-large"></i>Size '.$row['size'].'m<sup>2</sup></p>';
+								}
+							
+								if (!empty($row['bedrooms'])) 
+								{
+									echo '<p tabindex="0"><i class="fa fa-bed"></i>Bedrooms: '.$row['bedrooms'].'</p>';
+								}
+								?>
+								<p tabindex="0"><i class="fa fa-user"></i><?php echo $repname; ?></p>
 							</div>
 							<div class="col-md-4 col-sm-6">
 								<?php
-											if (!empty($row['garages'])) 
-											{
-												echo '<p><i class="fa fa-car"></i>Garages: '.$row['garages'].'</p>';
-											}
-										
-											if (!empty($row['barthroom'])) 
-											{
-												echo '<p><i class="fa fa-bath"></i>Barthrooms: '.$row['barthroom'].'</p>';
-											}
-										?>
+								if (!empty($row['garages'])) 
+								{
+									echo '<p tabindex="0"><i class="fa fa-car"></i>Garages: '.$row['garages'].'</p>';
+								}
 							
-								
+								if (!empty($row['barthroom'])) 
+								{
+									echo '<p tabindex="0"><i class="fa fa-bath"></i>Barthrooms: '.$row['barthroom'].'</p>';
+								}
+								?>
 							</div>
+
 							<div class="col-md-4">
-								<?php 
-
+								<?php
 								if (!empty($row['type'])) 
-											{
-												echo '<p><i class="fa fa-home"></i>Type: '.$row['type'].'</p>';
-											}
+								{
+									echo '<p tabindex="0"><i class="fa fa-home"></i>Type: '.$row['type'].'</p>';
+								}
 
-											if ( $datediff > 0) 
-											{
-												echo '<p><i class="fa fa-clock"></i>Listed ' .$datediff. ' days ago</p>';
-											};
-											?>
+								if ( $datediff > 0) 
+								{
+									echo '<p tabindex="0"><i class="fa fa-clock"></i>Listed ' .$datediff. ' days ago</p>';
+								};
+								?>
 							</div>
 						</div>
-						<h3 class="sl-sp-title">Description</h3>
+						<h3 class="sl-sp-title" tabindex="0">Description</h3>
 						<div class="description">
 								<p  tabindex="0">
 									<?php 
-										$subject = $row['description'];
-										$subject = nl2br($subject);
-										echo $subject;
+									$subject = $row['description'];
+									$subject = nl2br($subject);
+									echo $subject;
 									?>
 								</p>
 						</div>
 						
-						<!-- <h3 class="sl-sp-title bd-no">Floorplans</h3>
-						<div id="accordion" class="plan-accordion">
-							<div class="panel">
-								<div class="panel-header" id="headingOne">
-									<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">First Floor: <span>660 sq ft</span>	<i class="fa fa-angle-down"></i></button>
-								</div>
-								<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="panel-body">
-										<img src="img/plan-sketch.jpg" alt="">
-									</div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-header" id="headingTwo">
-									<button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">Second Floor:<span>610 sq ft.</span>	<i class="fa fa-angle-down"></i>
-									</button>
-								</div>
-								<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="panel-body">
-										<img src="img/plan-sketch.jpg" alt="">
-									</div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-header" id="headingThree">
-									<button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">Third Floor :<span>580 sq ft</span>	<i class="fa fa-angle-down"></i>
-									</button>
-								</div>
-								<div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-									<div class="panel-body">
-										<img src="img/plan-sketch.jpg" alt="">
-									</div>
-								</div>
-							</div>
-						</div> -->
-
-						<!-- <h3 class="sl-sp-title bd-no">Location</h3>
-						<div class="pos-map" id="map-canvas"></div> -->
 					</div>
 				</div>
 				<!-- sidebar -->
@@ -292,7 +251,7 @@ if (isset($_REQUEST['id']))
 						<div class="author-img set-bg" data-setbg="img/team/<?php echo $row['profilepic']; ?>"></div>
 						<div class="author-info">
 							<a href="teammember.php?id=<?php echo $row['id']; ?>">
-								<h5><?php echo $repname; ?></h5>
+								<h5 tabindex="0"><?php echo $repname; ?></h5>
 							</a>
 						</div>
 						<div class="author-contact">
@@ -312,16 +271,14 @@ if (isset($_REQUEST['id']))
 									}
 									return;
 								}
-								
 								echo displayContact( $row['workphone'] );
 								echo displayContact( $row['mobilephone'] );
 								echo displayContact( $row['email'] );
-								
 							?>
 						</div>
 					</div>
 
-					<div class="col-md-12">
+					<div class="col-md-12" tabindex="0">
 					<?php 
 						if (!empty($row['highlights'])) {
 							// echos the highlights of the property from the database
@@ -343,10 +300,7 @@ if (isset($_REQUEST['id']))
 					
     					?>
 					</div>
-								
-								
-							
-
+						
 					<div class="contact-form-card">
 						<h5>Enquiries</h5>
 						<?php
@@ -431,20 +385,13 @@ if (isset($_REQUEST['id']))
 	</section>
 	<!-- Page end -->
 
-
-
-
 	<!-- Footer section -->
 	<?php 
-
 		include "footer.php"
-
 	?>
 	<!-- Footer section end -->
                                         
 	<!--====== Javascripts & Jquery ======-->
-	<script src="js/magnific-popup.min.js"></script>  
-	<script src="js/owl.carousel.min.js"></script> 
-	<script src="js/masonry.pkgd.min.js"></script>
+	
 </body>
 </html>
