@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- LR was here got rid of comment tags that are not needed -->
+
 <?php
 include "opendb.php";
 
@@ -23,7 +26,6 @@ include "opendb.php";
 		<div class="hero-text text-white set-bg" data-setbgcover="img/cover2.png" tabindex="0">
 			<h2>find your place</h2>
 			<p>Renting or Buying Comercial or Private<br>Professional Property management in the Clarence Valley</p>
-			<!-- <a href="#" class="site-btn">VIEW DETAIL</a> -->
 		</div>
 		<!-- Header section -->
 		<?php 
@@ -251,8 +253,5 @@ include "opendb.php";
 		include "footer.php"
 	?>
 	<!-- Footer section end -->
-                                        
-<!--====== Javascripts & Jquery ======-->
-
 </body>
 </html>
