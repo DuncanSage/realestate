@@ -12,7 +12,7 @@ This repository contains a real estate website project made as part of PHP and p
 
 ## Installation: 
 To view and change this website yourself clone or download this repository and run it with a localhost server such as XAMPP or upload it to your web server. 
-Then import the `test9.sql`file, located in the RAW folder, into your mysql database and change the `$dbhost`, `$dbuser`, `$dbpass` and `$dbname` variables in `obendb.php` to your database details. 
+Then import the `test9.sql`file, located in the !RAW folder, into your mysql database and change the `$dbhost`, `$dbuser`, `$dbpass` and `$dbname` variables in `obendb.php` to your database details. 
 
 ## Usage: 
 After you have the website and database running you can change any property information in the `dsage_property` table and team meamber information in the `dsage_team` table.
