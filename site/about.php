@@ -54,6 +54,21 @@ include "opendb.php";
 					<h4>We are a real estate company based in Grafton NSW.</h4>
 				</div>
 			</div>
+			<?php 
+
+			//check for "video" in page address and display a embeded video if it is found
+			$url = $_SERVER['REQUEST_URI'];
+			//echo "$url";
+			if (strpos($url,'video') !== false) 
+			{
+			?>
+			
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/AVYFnEMygZA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+			<?php
+			}
+
+			?>
 		</div>
 		
 		<!-- Team section -->
