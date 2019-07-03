@@ -8,7 +8,7 @@ include "opendb.php";
  ?>
 <html lang="en">
 
-<?php 
+<?php
 
 	include "head.php";
 
@@ -23,13 +23,13 @@ include "opendb.php";
 	<!-- Page top section -->
 	<section class="hero-section page-top-section set-bg" data-setbg="img/about.jpg" data-setbgcover="img/cover.png">
 		<div class="hero-text text-white set-bg" data-setbgcover="img/cover2.png" tabindex="0">
-			
+
 			<h2>Properties</h2>
-			
+
 		</div>
 
 		<!-- Header section -->
-		<?php 
+		<?php
 			include "header.php"
 		?>
 		<!-- Header section end -->
@@ -45,6 +45,17 @@ include "opendb.php";
 		</div>
 	</div>
 
+ <!-- property search form  -->
+	<form class="contact-form search-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+		<input class="search" type="text" name="search" placeholder="Search">
+
+		<input type="radio" name="status" value="sale"> For Sale
+		<input type="radio" name="status" value="rent"> For Rent
+		<input type="radio" name="status" value="auction"> For Auction
+
+		<button type="submit" name="submit-search">Search</button>
+	</form>
+
 	<!-- page -->
 	<section class="page-section">
 		<div class="container">
@@ -55,7 +66,7 @@ include "opendb.php";
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Property section -->
 		<section class="feature-section spad">
 			<div class="container">
@@ -65,23 +76,42 @@ include "opendb.php";
 				</div>
 				<div class="row">
 
-				<?php 
+				<?php
+				if (isset($_POST['submit-search']))
+				{
+					var_dump($_POST);
+					$search = mysqli_real_escape_string($dbconn, $_POST['search']);
+					$status = $_POST['status'];
 
-				$sql = "SELECT `dsage_property`.*, `dsage_team`.`fname`, `dsage_team`.`lname`
-				FROM `dsage_property`
-				INNER JOIN `dsage_team` ON `dsage_team`.`id` = `dsage_property`.`salesrepid` 
-				WHERE `active` = 1";
-
+					$sql = "SELECT `dsage_property`.*, `dsage_team`.`fname`, `dsage_team`.`lname`
+					FROM `dsage_property`
+					INNER JOIN `dsage_team` ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
+					WHERE `status` = '%$status%'
+					-- OR `type` LIKE '%$search%'
+					-- OR `state` LIKE '%$search%'
+					-- OR `postcode` LIKE '%$search%'
+					-- OR `city` LIKE '%$search%'
+					-- OR `suburb` LIKE '%$search%'
+				  -- OR `streetname` LIKE '%$search%'
+					-- OR `streetnumber` LIKE '%$search%'";
+				}
+				else
+				{
+					$sql = "SELECT `dsage_property`.*, `dsage_team`.`fname`, `dsage_team`.`lname`
+					FROM `dsage_property`
+					INNER JOIN `dsage_team` ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
+					WHERE `active` = 1";
+				}
 				// echo "sql statement $sql";
 
 
 				$result = mysqli_query($dbconn, $sql);
 
-				if (mysqli_num_rows($result) > 0) 
+				if (mysqli_num_rows($result) > 0)
 				{
-    				while($row = mysqli_fetch_assoc($result)) 
+    				while($row = mysqli_fetch_assoc($result))
     				{
-    		
+
 
 					$repname = $row['fname']. ' ' .$row['lname'];
 
@@ -93,8 +123,8 @@ include "opendb.php";
 
 					$datediff = round($datediff / (60 * 60 * 24));
 
-					$location = 
-					 $row['addresstype'].' ' 
+					$location =
+					 $row['addresstype'].' '
 					.$row['addressid'].' '
 					.$row['streetnumber'].' '
 					.$row['streetname'].' '
@@ -115,7 +145,7 @@ include "opendb.php";
 						</div>
 						<div class="feature-text">
 							<div class="text-center feature-title">
-								<?php  
+								<?php
 
 								echo '<h5>'.$row['streetnumber'].' '.$row['streetname'].'</h5>';
 
@@ -128,62 +158,62 @@ include "opendb.php";
 									<div class="rf-left">
 										<?php
 										//echos details of property if not empty
-											if (!empty($row['size'])) 
+											if (!empty($row['size']))
 											{
 											echo '<p><i class="fa fa-th-large"></i>Size '.$row['size'].'m<sup>2</sup></p>';
 											}
-										
-											if (!empty($row['bedrooms'])) 
+
+											if (!empty($row['bedrooms']))
 											{
 												echo '<p><i class="fa fa-bed"></i>Bedrooms: '.$row['bedrooms'].'</p>';
 											}
-									
+
 										?>
 									</div>
 									<div class="rf-right">
 										<?php
-											if (!empty($row['garages'])) 
+											if (!empty($row['garages']))
 											{
 												echo '<p><i class="fa fa-car"></i>Garages: '.$row['garages'].'</p>';
 											}
-										
-											if (!empty($row['barthroom'])) 
+
+											if (!empty($row['barthroom']))
 											{
 												echo '<p><i class="fa fa-bath"></i>Barthrooms: '.$row['barthroom'].'</p>';
 											}
 										?>
-									</div>	
+									</div>
 								</div>
 								<div class="room-info">
 									<div class="rf-left">
 										<p><i class="fa fa-user"></i></i><?php echo $repname; ?></p>
 									</div>
 									<div class="rf-right">
-										<?php 
-											if ( $datediff > 0) 
+										<?php
+											if ( $datediff > 0)
 											{
 												echo '<p>Listed ' .$datediff. ' days ago</p>';
 											};
 											?>
-										
-									</div>	
+
+									</div>
 								</div>
 							</div>
 							<p href="http://www.fngrafton.com.au/real-estate/1238184/2-15-gosford-close-grafton-nsw-2460" target="_blank" class="room-price">
 								<?php
-								
-									if ($row['status'] == 'rent') 
+
+									if ($row['status'] == 'rent')
 									{
-										echo '$'.number_format($row['price']). ' perweek'; 
+										echo '$'.number_format($row['price']). ' perweek';
 									}
 									elseif ($row['status'] == 'sale')
 									{
 										echo '$'.number_format($row['price']);
 
 									}
-									else 
+									else
 									{
-										echo 'For Auction'; 
+										echo 'For Auction';
 									}
 								?>
 							</p>
@@ -192,7 +222,7 @@ include "opendb.php";
 				</div>
 <!--=================================== block repeating for items end =================================-->
 <?php
-    } 
+    }
 } else {
     	echo "<h3 style=color:#990000> No records found</h3>";
     }
@@ -206,7 +236,7 @@ include "opendb.php";
 	<!-- page end -->
 
 	<!-- Footer section -->
-	<?php 
+	<?php
 
 		include "footer.php"
 
