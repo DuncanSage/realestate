@@ -48,11 +48,6 @@ include "opendb.php";
  <!-- property search form  -->
 	<form class="contact-form search-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 		<input class="search" type="text" name="search" placeholder="Search">
-
-		<input type="radio" name="status" value="sale"> For Sale
-		<input type="radio" name="status" value="rent"> For Rent
-		<input type="radio" name="status" value="auction"> For Auction
-
 		<button type="submit" name="submit-search">Search</button>
 	</form>
 
@@ -86,14 +81,14 @@ include "opendb.php";
 					$sql = "SELECT `dsage_property`.*, `dsage_team`.`fname`, `dsage_team`.`lname`
 					FROM `dsage_property`
 					INNER JOIN `dsage_team` ON `dsage_team`.`id` = `dsage_property`.`salesrepid`
-					WHERE `status` = '%$status%'
-					-- OR `type` LIKE '%$search%'
-					-- OR `state` LIKE '%$search%'
-					-- OR `postcode` LIKE '%$search%'
-					-- OR `city` LIKE '%$search%'
-					-- OR `suburb` LIKE '%$search%'
-				  -- OR `streetname` LIKE '%$search%'
-					-- OR `streetnumber` LIKE '%$search%'";
+					WHERE `active` = 1
+					OR `type` LIKE '%$search%'
+					OR `state` LIKE '%$search%'
+					OR `postcode` LIKE '%$search%'
+					OR `city` LIKE '%$search%'
+					OR `suburb` LIKE '%$search%'
+				  OR `streetname` LIKE '%$search%'
+					OR `streetnumber` LIKE '%$search%'";
 				}
 				else
 				{
